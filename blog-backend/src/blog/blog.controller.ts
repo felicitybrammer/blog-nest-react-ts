@@ -9,13 +9,29 @@ export class BlogController {
 
     //submit a post
     @Post('/post')
-    async addPost() {}
+    async addPost(@Res() res, @Body() createPostDTO: CreatePostDTO) {
+        const newPost = await this.blogService.addPost(createPostDTO);
+        
+        return res.status(HttpStatus.OK).json({
+            message: 'Post has been submitted successfully!',
+            post: newPost,
+        });
+    }
 
     //fetch a post by id
     @Get('post/:postID')
-    async getPost() {}
+    async getPost(@Res() res, @Param('postId', new ValidateObjectId()) postID) {
+        const post = await this.blogService.getPost(postID);
+        if (!post) {
+            throw new NotFoundException('Post does not exist!');
+        }
+        return res.status(HttpStatus.OK).json(post);
+    }
 
     //fetch all posts
     @Get('posts')
-    async getPosts() {}
+    async getPosts(@Res() res) {
+        const posts = await this.blogService.getPosts();
+        return res.status(HttpStatus.OK).json(posts);
+    }
 }
