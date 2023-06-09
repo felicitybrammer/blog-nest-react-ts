@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { expressjwt, GetVerificationKey } from 'express-jwt';
-import jwksRsa from 'jwks-rsa';
+import { expressJwtSecret } from 'jwks-rsa';
 import { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -10,7 +10,7 @@ export class AuthenticationMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: Function) {
     
     expressjwt({
-        secret: jwksRsa.expressJwtSecret({
+        secret: expressJwtSecret({
           cache: true,
           rateLimit: true,
           jwksRequestsPerMinute: 5,
