@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar'
 import Home from './components/Home';
 import Post from './components/post/Post';
@@ -11,14 +11,14 @@ function App(): React.ReactElement {
     <div className="App">
       <Navbar />
       <div className={'container'}>
-        <Router>
+        {/* <Router> */}
           <Routes>
             <Route path={"/"} element={<Home />} />
             <Route path={"/post/:postId"} element={<Post />} />
             <Route path={"/edit/:postId"} element={<Edit />} />
             <Route path={"/create"} element={<Create />} />
           </Routes>
-        </Router>
+        {/* </Router> */}
       </div>
     </div>
   );
